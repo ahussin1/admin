@@ -1,4 +1,6 @@
-export default {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStringMode: false,
   images: {
     remotePatterns: [
       {
@@ -13,8 +15,9 @@ export default {
       },
       {
         protocol: 'https',
-        hostname: "kxnqextnviwfuuhbqwdt.supabase.co",
-        search: ''
+        hostname: '*.supabase.co', // Correct Supabase domain
+        search: '',
+        pathname: '/storage/v1/**',
       }
     ]
   },
@@ -23,3 +26,5 @@ export default {
     SUPABASE_KEY: process.env.SUPABASE_ANON_KEY,
   }
 };
+
+module.exports = nextConfig;

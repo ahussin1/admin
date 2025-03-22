@@ -12,7 +12,7 @@ if (!supabaseUrl || !supabaseKey) {
 export const db = createClient(supabaseUrl, supabaseKey);
 
 // Define the type for products (match your actual schema)
-interface Product {
+export interface Item {
   id: number;
   name: string;
   description: string;
@@ -22,6 +22,8 @@ interface Product {
   category_id: string;
   inventory_quantity: number;
   coupon_id: string | null;
+  status: string;
+  availableAt: Date;
 }
 
 // Fetch products with search and pagination
@@ -29,7 +31,7 @@ export async function getProducts(
   search: string,
   offset: number
 ): Promise<{
-  products: Product[];
+  products: Item[];
   newOffset: number | null;
   totalProducts: number;
 }> {
@@ -69,7 +71,7 @@ export async function getProducts(
 }
 
 // Add a new product
-export async function addProduct(product: Product): Promise<Product | null> {
+export async function addProduct(product: Item): Promise<Item | null> {
   const { data, error } = await db
     .from('products')
     .insert([product])
